@@ -1,0 +1,41 @@
+Program Java simplu
+Termen de predare 1 saptamana
+
+
+Date de intrare: 
+ - din linia de comanda
+     java Problema p1 p2 p3 ...
+               argumente
+ - transformarea sirurilor de caractere in numere
+	int i= Integer.parseInt("123")
+
+Date de iesire: System.out.println(...)
+
+Sa se scrie un program Java care:
+
+1. Genereaza numere prime mai mici decat un numar natural dat.
+
+2. Genereaza primele n (n natural dat) numere prime.
+
+3. Fie un sir de numere. Determinati valoarea maxima si valoarea minima dintre numerele din
+   sir care sunt prime.
+
+4. Determina toate numerele naturale mai mici decat un numar natural nenul dat n si care 
+   sunt prime cu n.
+
+5. Determina primele n perechi de numere prime gemene, unde n este un numar natural nenul 
+   dat. Doua numere prime p si q sunt gemene daca q-p = 2.
+
+6. Determina primele 10 numere naturale strict mai mari ca 2, care au proprietatea ca toate 
+   numerele naturale strict mai mici decat ele si care sunt prime cu ele sunt numere prime.
+
+7. Fie un sir de numere. Determinati numerele din sir care sunt superprime.
+	(superprim = nr este prim, si numarul fara ultima cifra este prim,..., cifra ultima este nr prim)
+
+8. Descompune in factori primi un numar natural nenul dat.
+
+9. Tipareste exponentul la care numarul prim p apare in descompunerea
+    in factori primi a numarului N = 1*2*...*n (n natural nenul dat).
+
+10. Fie un sir de numere. Determinati valoarea maxima dintre numerele care sunt prime cu o valoare
+   data m.
