@@ -110,7 +110,7 @@ public class Hashtable<K, V> implements Dictionary<K, V> {
 		}
 	}
 
-	private static class Entry<K, V> implements Dictionary.Entry<K, V> {
+	private static class Entry<K, V> {
 		int hash;
 		K key;
 		V value;
@@ -148,9 +148,9 @@ public class Hashtable<K, V> implements Dictionary<K, V> {
 		}
 
 		public boolean equals(Object o) {
-			if (!(o instanceof Dictionary.Entry))
+			if (!(o instanceof Entry))
 				return false;
-			Dictionary.Entry<K, V> e = (Dictionary.Entry<K, V>) o;
+			Entry<K, V> e = (Entry<K, V>) o;
 
 			return (key == null ? e.getKey() == null : key.equals(e.getKey()))
 					&& (value == null ? e.getValue() == null : value.equals(e

@@ -1,15 +1,15 @@
 package adt;
 
+import java.util.Comparator;
+
 public interface Dictionary<K, V>{
-	V add(K key, V value);
-	V get(K key);
-	int size();
-	int hashCode();
-	interface Entry<K,V> {
-		K getKey();
-		V getValue();
-		V setValue(V value);
-		boolean equals(Object o);
-		int hashCode();
-	}
+	void addNewEntry(K key, V value);
+	V getValueByKey(K key);
+	void changeExistingEntry(K key, V value);
+	void removeExistingEntry(K key);
+	void setComparator(Comparator<K> key);
+	boolean containsKey(K key);
+	boolean containsValue(V value);
+	boolean isEmpty();
+	int getSize();
 }
