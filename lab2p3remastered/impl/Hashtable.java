@@ -1,10 +1,12 @@
 package impl;
 
+import java.util.Comparator;
+import java.util.Iterator;
 import adt.Dictionary;
 
 public class Hashtable<K, V> implements Dictionary<K, V> {
 	private Entry<K, V>[] table;
-	private int count;
+	private int count = 0;
 	private int threshold;
 	private float loadFactor = 0.75f;
 	private int modCount = 0;
@@ -25,7 +27,7 @@ public class Hashtable<K, V> implements Dictionary<K, V> {
 		this(11, 0.75f);
 	}
 
-	public V add(K key, V value) {
+	public void addNewEntry(K key, V value) {
 		// Make sure the value is not null
 		if (value == null) {
 			throw new NullPointerException();
@@ -36,9 +38,9 @@ public class Hashtable<K, V> implements Dictionary<K, V> {
 		int index = (hash & 0x7FFFFFFF) % tab.length;
 		for (Entry<K, V> e = tab[index]; e != null; e = e.next) {
 			if ((e.hash == hash) && e.key.equals(key)) {
-				V old = e.value;
+//				V old = e.value;
 				e.value = value;
-				return old;
+//				return old;
 			}
 		}
 		modCount++;
@@ -52,10 +54,10 @@ public class Hashtable<K, V> implements Dictionary<K, V> {
 		Entry<K, V> e = tab[index];
 		tab[index] = new Entry<K, V>(hash, key, value, e);
 		count++;
-		return null;
+//		return null;
 	}
 
-	public V get(K key) {
+	public V getValueByKey(K key) {
 		Entry<K, V> tab[] = table;
 		int hash = key.hashCode();
 		int index = (hash & 0x7FFFFFFF) % tab.length;
@@ -66,9 +68,79 @@ public class Hashtable<K, V> implements Dictionary<K, V> {
 		}
 		return null;
 	}
+	
+	public void changeExistingEntry(K key, V value) {
+		Entry<K, V> tab[] = table;
+		int hash = key.hashCode();
+		int index = (hash & 0x7FFFFFFF) % tab.length;
+		for (Entry<K, V> e = tab[index]; e != null; e = e.next) {
+			if ((e.hash == hash) && e.key.equals(key)) {
+				e.value = value;
+			}
+		}
+	}
+	
+	public boolean containsKey(K key) {
+		Entry<K, V> tab[] = table;
+		int hash = key.hashCode();
+		int index = (hash & 0x7FFFFFFF) % tab.length;
+		for (Entry<K, V> e = tab[index]; e != null; e = e.next) {
+			if ((e.hash == hash) && e.key.equals(key)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean containsValue(V value) {
+		if (value == null) {
+            throw new NullPointerException();
+        }
+        Entry<K, V> tab[] = table;
+        for (int i = tab.length ; i--  > 0 ;) {
+            for (Entry< K,V > e = tab[i] ; e != null ; e = e.next) {
+                if (e.value.equals(value)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+	}
 
-	public int size() {
+	public void removeExistingEntry(K key) {
+		Entry<K, V> tab[] = table;
+        int hash = key.hashCode();
+        int index = (hash & 0x7FFFFFFF) % tab.length;
+        for (Entry< K,V > e = tab[index], prev = null ; e != null ; prev = e, e = e.next) {
+            if ((e.hash == hash) && e.key.equals(key)) {
+                modCount++;
+                if (prev != null) {
+                    prev.next = e.next;
+                } else {
+                    tab[index] = e.next;
+                }
+                count--;
+                e.value = null;
+            }
+        }
+	}
+	
+	public int getSize() {
 		return count;
+	}
+	
+	public boolean isEmpty() {
+		if (count == 0) return true;
+		return false;
+	}
+	
+	public void setComparator(Comparator<K> newKeyComparator) {
+		
+	}
+	
+	public Iterator<K> iterator() {
+		Iterator<K> i;
+		return i;
 	}
 
 	public  int hashCode() {

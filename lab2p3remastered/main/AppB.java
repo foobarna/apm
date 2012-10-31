@@ -37,7 +37,11 @@ public class AppB {
 				break;
 			case 2:
 				System.out.print("Type the product's name: "); prod = input.next();
-				printDeliveryForProduct(map, prod);
+				try {
+					printDeliveryForProduct(map, prod);
+				} catch (NullPointerException e) {
+					System.out.print(e.getMessage());
+				}
 				break;
 			case 3:
 				System.out.print("Quiting...\n");
@@ -49,23 +53,26 @@ public class AppB {
 	}
 	
 	public static void addDeliveryToMap(Dictionary<String, Delivery[]> m, Delivery d ) {
-		if(m.get(d.getProduct()) == null) {
+		if(m.getValueByKey(d.getProduct()) == null) {
 			Delivery[] seq = new Delivery[10];
 			seq[0] = d;
-			m.add(d.getProduct(), seq);
+			m.addNewEntry(d.getProduct(), seq);
 		} else {
-			Delivery[] seq = m.get(d.getProduct()).clone();
+			Delivery[] seq = m.getValueByKey(d.getProduct()).clone();
 			int i=0;
 			for(; i < seq.length; i++){
 				if (!(seq[i] instanceof Delivery)) break;
 			}
 			seq[i] = d;
-			m.add(d.getProduct(),seq);
+			m.addNewEntry(d.getProduct(),seq);
 		}
 	}
 	
 	public static void printDeliveryForProduct(Dictionary<String, Delivery[]> m, String product) {
-		Delivery[] seq = m.get(product);
+		Delivery[] seq = m.getValueByKey(product);
+		if (seq == null) {
+            throw new NullPointerException();
+        }
 		for(int i=0; i < seq.length; i++){
 			if (!(seq[i] instanceof Delivery)) break;
 			System.out.print(seq[i] + "\n");

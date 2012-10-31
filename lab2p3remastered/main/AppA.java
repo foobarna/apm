@@ -1,7 +1,6 @@
 package main;
 
 import impl.*;
-import domain.*;
 import java.util.Scanner;
 
 import adt.Dictionary;
@@ -24,12 +23,12 @@ public class AppA {
 			switch (cmd) {
 			case 1:
 				String word = input.next();
-				System.out.print("The plural is: " + map.get(word) + "\n");
+				System.out.print("The plural is: " + map.getValueByKey(word) + "\n");
 				break;
 			case 2:
 				String singular = input.next();
 				String plural = input.next();
-				map.add(singular, plural);
+				map.addNewEntry(singular, plural);
 				plural = "fuck";
 				System.out.print("Words added!\n");
 				break;
