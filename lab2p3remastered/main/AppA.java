@@ -12,10 +12,14 @@ public class AppA {
 	 */
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		Dictionary<String, String> map = new Hashtable<String, String>();
+		Dictionary<String, String> map = new ConcreteDictionary<String, String>();
+		map.addNewEntry("asd", "value1");
+		map.addNewEntry("key2", "another value");
+		for (String key: map) {
+			System.out.print(key + "\n");
+		}
 		while (true) {
-			System.out
-					.print("Choose an option from below:\n"
+			System.out.print("Choose an option from below:\n"
 							+ "1. Check a word's plural\n"
 							+ "2. Enter a pair of (word,word's plural)\n"
 							+ "3. Exit\n");

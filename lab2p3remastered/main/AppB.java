@@ -15,7 +15,7 @@ public class AppB {
 	 */
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		Dictionary<String, Delivery[]> map = new Hashtable<String, Delivery[]>();
+		Dictionary<String, Delivery[]> map = new ConcreteDictionary<String, Delivery[]>();
 		Date d;
 		int qty;
 		String prod;

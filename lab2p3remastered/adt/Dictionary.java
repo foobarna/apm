@@ -2,7 +2,7 @@ package adt;
 
 import java.util.Comparator;
 
-public interface Dictionary<K, V>{
+public interface Dictionary<K, V> extends Iterable<K> {
 	void addNewEntry(K key, V value);
 	V getValueByKey(K key);
 	void changeExistingEntry(K key, V value);
