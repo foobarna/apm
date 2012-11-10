@@ -1,7 +1,7 @@
 package factory;
 
-import adt.Dictionary;
 import impl.ConcreteDictionary;
+import adt.Dictionary;
 
 public class DataStructuresFactory {
 

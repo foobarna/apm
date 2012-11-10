@@ -25,12 +25,13 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 		if (initialCapacity == 0)
 			initialCapacity = 1;
 		this.loadFactor = loadFactor;
-		table = new Entry[initialCapacity];
+		table =(Entry<K, V>[]) new Entry[initialCapacity];
 		threshold = (int) (initialCapacity * loadFactor);
 	}
 
 	public ConcreteDictionary() {
 		this(11, 0.75f);
+		comparator = null;
 	}
 
 	public void addNewEntry(K key, V value) {
@@ -45,7 +46,8 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 		for (Entry<K, V> e = tab[index]; e != null; e = e.next) {
 			if ((e.hash == hash) && e.key.equals(key)) {
 				// V old = e.value;
-				e.value = value;
+			    	throw new RuntimeException("already existing key");
+//				e.value = value;
 				// return old;
 			}
 		}
@@ -82,8 +84,10 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 		for (Entry<K, V> e = tab[index]; e != null; e = e.next) {
 			if ((e.hash == hash) && e.key.equals(key)) {
 				e.value = value;
+				return;
 			}
 		}
+		throw new RuntimeException("key not found for change");
 	}
 
 	public boolean containsKey(K key) {
@@ -115,6 +119,7 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 
 	public void removeExistingEntry(K key) {
 		Entry<K, V> tab[] = table;
+		boolean removed = false;
 		int hash = key.hashCode();
 		int index = (hash & 0x7FFFFFFF) % tab.length;
 		for (Entry<K, V> e = tab[index], prev = null; e != null; prev = e, e = e.next) {
@@ -124,11 +129,13 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 					prev.next = e.next;
 				} else {
 					tab[index] = e.next;
+					removed = true;
 				}
 				count--;
 				e.value = null;
 			}
 		}
+		if (!removed) throw new RuntimeException("key not found for remove");
 	}
 
 	public int getSize() {
@@ -152,12 +159,6 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 		return keys;
 	}
 
-	public void setComparator(Comparator<K> newKeyComparator) {
-		if (comparator == null) {
-			comparator = newKeyComparator;
-		}
-	}
-
 	public Iterator<K> iterator() {
 		Iterator<K> i = returnSetOfKeys().iterator();
 		return i;
@@ -176,6 +177,11 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 		return h;
 	}
 
+	public void setComparator(Comparator<K> newKeyComparator) {
+		if (comparator == null) {
+			comparator = newKeyComparator;
+		}
+	}
 	protected void rehash() {
 		int oldCapacity = table.length;
 		Entry<K, V>[] oldMap = table;
@@ -245,8 +251,7 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 			Entry<K, V> e = (Entry<K, V>) o;
 
 			return (key == null ? e.getKey() == null : key.equals(e.getKey()))
-					&& (value == null ? e.getValue() == null : value.equals(e
-							.getValue()));
+					&& (value == null ? e.getValue() == null : value.equals(e.getValue()));
 		}
 
 		public int hashCode() {

@@ -63,8 +63,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="10" corner="BOTTOM_RIGHT" language="java" name="impl.ConcreteDictionary.Entry" project="lab2p3remastered" 
-    file="/lab2p3remastered/impl/ConcreteDictionary.java" binary="false">    
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="ro.ubbcluj.cs.apm.task2.impl.ConcreteDictionary.Entry" 
+    project="aaaa" file="/aaaa/src/ro/ubbcluj/cs/apm/task2/impl/ConcreteDictionary.java" binary="false">    
     <position height="246" width="145" x="136" y="1036"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -89,8 +89,8 @@
     <position height="47" width="98" x="819" y="185"/>    
     <display autosize="true" stereotype="true"/>  
   </package>  
-  <class id="14" corner="BOTTOM_RIGHT" language="java" name="impl.ConcreteDictionary" project="lab2p3remastered" 
-    file="/lab2p3remastered/impl/ConcreteDictionary.java" binary="false">    
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="ro.ubbcluj.cs.apm.task2.impl.ConcreteDictionary" 
+    project="aaaa" file="/aaaa/src/ro/ubbcluj/cs/apm/task2/impl/ConcreteDictionary.java" binary="false">    
     <position height="-1" width="-1" x="-82" y="783"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      

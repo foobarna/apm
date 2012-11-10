@@ -105,18 +105,18 @@ public class DictionaryTest extends TestCase {
 
 	public void testIteratorWithStringsAndSorted() {
 		Dictionary<String, String> theDictionary = DataStructuresFactory.createDictionary();
-	
+
 		theDictionary.addNewEntry("dd", "ddd");
 		theDictionary.addNewEntry("bb", "bbb");
 		theDictionary.addNewEntry("aa", "aaa");
 		theDictionary.addNewEntry("cc", "ccc");
-	
+
 		assertEquals(4, theDictionary.getSize());
 		List<String> iteratedValues = new ArrayList<String>();
 		for (String currentValue : theDictionary)
 			iteratedValues.add(currentValue);
 		assertEquals(4, theDictionary.getSize());
-	
+
 		assertEquals(4, iteratedValues.size());
 		assertEquals("aa", iteratedValues.get(0));
 		assertEquals("bb", iteratedValues.get(1));
@@ -143,6 +143,42 @@ public class DictionaryTest extends TestCase {
 		assertTrue(iteratedValues.contains("bb"));
 		assertTrue(iteratedValues.contains("cc"));
 		assertTrue(iteratedValues.contains("dd"));
+	}
+
+	public void testExceptionOnAddNewEntry() {
+		Dictionary<String, String> theDictionary = DataStructuresFactory.createDictionary();
+		theDictionary.addNewEntry("aa", "aaa");
+
+		try {
+			theDictionary.addNewEntry("aa", "bbb");
+			fail("expected RuntimeException not thrown");
+		} catch (RuntimeException ex) {
+			assertEquals("already existing key", ex.getMessage());
+		}
+	}
+
+	public void testExceptionOnChangeExistingEntry() {
+		Dictionary<String, String> theDictionary = DataStructuresFactory.createDictionary();
+		theDictionary.addNewEntry("aa", "aaa");
+
+		try {
+			theDictionary.changeExistingEntry("bb", "bbb");
+			fail("expected RuntimeException not thrown");
+		} catch (RuntimeException ex) {
+			assertEquals("key not found for change", ex.getMessage());
+		}
+	}
+
+	public void testExceptionOnRemoveExistingEntry() {
+		Dictionary<String, String> theDictionary = DataStructuresFactory.createDictionary();
+		theDictionary.addNewEntry("aa", "aaa");
+
+		try {
+			theDictionary.removeExistingEntry("bb");
+			fail("expected RuntimeException not thrown");
+		} catch (RuntimeException ex) {
+			assertEquals("key not found for remove", ex.getMessage());
+		}
 	}
 
 }

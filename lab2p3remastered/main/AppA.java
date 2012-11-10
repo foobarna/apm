@@ -1,7 +1,9 @@
 package main;
 
-import impl.*;
+
 import java.util.Scanner;
+
+import impl.ConcreteDictionary;
 
 import adt.Dictionary;
 

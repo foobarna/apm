@@ -1,10 +1,10 @@
 package main;
 
-import impl.*;
-
 import java.util.Scanner;
 import domain.*;
 import java.util.Date;
+
+import impl.ConcreteDictionary;
 
 import adt.Dictionary;
 
@@ -67,7 +67,7 @@ public class AppB {
 			m.addNewEntry(d.getProduct(),seq);
 		}
 	}
-	
+
 	public static void printDeliveryForProduct(Dictionary<String, Delivery[]> m, String product) {
 		Delivery[] seq = m.getValueByKey(product);
 		if (seq == null) {
