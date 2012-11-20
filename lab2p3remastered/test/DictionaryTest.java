@@ -1,5 +1,12 @@
 package test;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,6 +186,35 @@ public class DictionaryTest extends TestCase {
 		} catch (RuntimeException ex) {
 			assertEquals("key not found for remove", ex.getMessage());
 		}
+	}
+
+	public void testExternalizationWithStrings() throws IOException, ClassNotFoundException {
+		Dictionary<String, String> initialDictionary = DataStructuresFactory.createDictionary();
+		initialDictionary.addNewEntry("aaa", "AAA");
+		initialDictionary.addNewEntry("bbb", "BBB");
+		initialDictionary.addNewEntry("ccc", "CCC");
+
+		OutputStream outputStream = new FileOutputStream("testDictionaryExternalizationWithStrings.bin");
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+		objectOutputStream.writeObject(initialDictionary);
+
+
+		objectOutputStream.flush();
+		outputStream.flush();
+		objectOutputStream.close();
+		outputStream.close();
+
+		InputStream inputStream = new FileInputStream("testDictionaryExternalizationWithStrings.bin");
+		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+
+		@SuppressWarnings("unchecked")
+		Dictionary<String, String> finalDictionary = (Dictionary<String, String>) objectInputStream.readObject();
+		
+		objectInputStream.close();
+		inputStream.close();
+
+		assertEquals(initialDictionary, finalDictionary);
 	}
 
 }

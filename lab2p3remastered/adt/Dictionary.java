@@ -1,8 +1,10 @@
 package adt;
 
+import java.io.Externalizable;
+
 import java.util.Comparator;
 
-public interface Dictionary<K, V> extends Iterable<K> {
+public interface Dictionary<K, V> extends Iterable<K>, Externalizable {
 	void addNewEntry(K key, V value);
 	V getValueByKey(K key);
 	void changeExistingEntry(K key, V value);

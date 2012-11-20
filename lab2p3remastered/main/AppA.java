@@ -17,6 +17,7 @@ public class AppA {
 		Dictionary<String, String> map = new ConcreteDictionary<String, String>();
 		map.addNewEntry("asd", "value1");
 		map.addNewEntry("key2", "another value");
+		System.out.print(map);
 		for (String key: map) {
 			System.out.print(key + "\n");
 		}
