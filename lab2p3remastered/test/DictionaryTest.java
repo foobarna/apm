@@ -194,7 +194,7 @@ public class DictionaryTest extends TestCase {
 		initialDictionary.addNewEntry("bbb", "BBB");
 		initialDictionary.addNewEntry("ccc", "CCC");
 
-		OutputStream outputStream = new FileOutputStream("testDictionaryExternalizationWithStrings.bin");
+		OutputStream outputStream = new FileOutputStream("testDictionaryExternalizationWithStrings.txt");
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
 		objectOutputStream.writeObject(initialDictionary);
@@ -205,7 +205,7 @@ public class DictionaryTest extends TestCase {
 		objectOutputStream.close();
 		outputStream.close();
 
-		InputStream inputStream = new FileInputStream("testDictionaryExternalizationWithStrings.bin");
+		InputStream inputStream = new FileInputStream("testDictionaryExternalizationWithStrings.txt");
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
 		@SuppressWarnings("unchecked")
