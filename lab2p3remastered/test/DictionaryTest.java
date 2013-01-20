@@ -1,5 +1,7 @@
 package test;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,11 +10,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Vector;
+
+import domain.Delivery;
 
 import junit.framework.TestCase;
 import adt.Dictionary;
 import factory.DataStructuresFactory;
+import repository.DeliveryRepository;
 
 public class DictionaryTest extends TestCase {
 
@@ -189,12 +196,22 @@ public class DictionaryTest extends TestCase {
 	}
 
 	public void testExternalizationWithStrings() throws IOException, ClassNotFoundException {
-		Dictionary<String, String> initialDictionary = DataStructuresFactory.createDictionary();
-		initialDictionary.addNewEntry("aaa", "AAA");
-		initialDictionary.addNewEntry("bbb", "BBB");
-		initialDictionary.addNewEntry("ccc", "CCC");
+		Dictionary<String, Delivery> initialDictionary = DataStructuresFactory.createDictionary();
+		initialDictionary.addNewEntry("aaa", new Delivery());
+		initialDictionary.addNewEntry("bbb", new Delivery());
+		initialDictionary.addNewEntry("ccc", new Delivery());
 
-		OutputStream outputStream = new FileOutputStream("testDictionaryExternalizationWithStrings.txt");
+		OutputStream outputStream = new FileOutputStream("testDictionaryExternalizationWithStrings.bin");
+//		BufferedOutputStream out = new BufferedOutputStream(outputStream);
+//		for(String s:initialDictionary){
+//		    out.write(s.getBytes(), 0, s.length());
+//		    out.flush();
+//		    outputStream.flush();
+//		}
+//		
+//		outputStream.close();
+//		out.close();
+		
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
 		objectOutputStream.writeObject(initialDictionary);
@@ -205,16 +222,63 @@ public class DictionaryTest extends TestCase {
 		objectOutputStream.close();
 		outputStream.close();
 
-		InputStream inputStream = new FileInputStream("testDictionaryExternalizationWithStrings.txt");
+		InputStream inputStream = new FileInputStream("testDictionaryExternalizationWithStrings.bin");
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
 		@SuppressWarnings("unchecked")
-		Dictionary<String, String> finalDictionary = (Dictionary<String, String>) objectInputStream.readObject();
+		Dictionary<String, Delivery> finalDictionary = (Dictionary<String, Delivery>) objectInputStream.readObject();
 		
 		objectInputStream.close();
 		inputStream.close();
 
 		assertEquals(initialDictionary, finalDictionary);
 	}
+	
+	public void testRepository() {
+	    Date d = new Date();
+	    DeliveryRepository r1 = new DeliveryRepository();
+	    r1.add(new Delivery("name1",23,d));
+	    r1.add(new Delivery("name1",23, d));
+	    r1.add(new Delivery("name5",43, d));
+	    for(Delivery s:r1.getAll()) {
+		System.out.println(s.getProduct());
+	    }
+	    assertEquals(r1.getSize(),3);
+	    assertEquals(r1.get("name1").size(), 2);
+	    
+	    DeliveryRepository r2 = new DeliveryRepository();
+	    r2.add(new Delivery("name1",23, d));
+	    r2.add(new Delivery("name1",23, d));
+	    r2.add(new Delivery("name5",43, d));
+	    
+	    assertEquals(r1.get("name1"),r2.get("name1"));
+	}
 
+	public void test12() throws IOException, ClassNotFoundException {
+		Vector<String> v1 = new Vector<String>();
+		v1.add("asd");
+		v1.add("portocala");
+		OutputStream outputStream = new FileOutputStream("test12.bin");
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+		objectOutputStream.writeObject(v1);
+
+
+		objectOutputStream.flush();
+		outputStream.flush();
+		objectOutputStream.close();
+		outputStream.close();
+
+		InputStream inputStream = new FileInputStream("test12.bin");
+		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+
+		@SuppressWarnings("unchecked")
+		Vector<String> v2= (Vector<String>) objectInputStream.readObject();
+		
+		objectInputStream.close();
+		inputStream.close();
+		System.out.println(v2.get(1));
+		
+		assertEquals(v1,v2);
+	}
 }

@@ -64,7 +64,7 @@ public class AppB {
 				if (!(seq[i] instanceof Delivery)) break;
 			}
 			seq[i] = d;
-			m.addNewEntry(d.getProduct(),seq);
+			m.changeExistingEntry(d.getProduct(),seq);
 		}
 	}
 

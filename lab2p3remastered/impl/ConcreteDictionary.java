@@ -3,7 +3,6 @@ package impl;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -12,6 +11,10 @@ import java.util.SortedSet;
 import adt.Dictionary;
 
 public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Entry<K, V>[] table;
     private int count = 0;
     private int threshold;
@@ -227,7 +230,7 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 		break;
 	    value = (V) in.readObject();
 	    addNewEntry(key, value);
-	    // System.out.println(key + " " + value);
+//	    System.out.println(key + " " + value);
 	}
     }
 
@@ -237,7 +240,7 @@ public class ConcreteDictionary<K, V> implements Dictionary<K, V> {
 	    V value = getValueByKey(key);
 	    out.writeObject(key);
 	    out.writeObject(value);
-	    // System.out.println(key + " " + value);
+//	     System.out.println(key + " " + value);
 	}
 	out.writeObject(null);
     }
